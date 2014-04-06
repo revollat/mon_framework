@@ -1,18 +1,4 @@
 {
-    "name": "mon/fraework",
-    "description": "mon framework basé sur les composants symfony2",
-    "minimum-stability": "dev",
-    "license": "GPL",
-    "authors": [
-        {
-            "name": "Olivier revollat",
-            "email": "revollat@gmail.com"
-        }
-    ],
-
     "require": {
-        "symfony/http-foundation": "2.5.*@dev",
-        "monolog/monolog": "1.8.*@dev",
-        "twig/twig": "1.15.*@dev"
     }
 }
