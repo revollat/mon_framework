@@ -1,8 +1,10 @@
 <?php
 
-// 1-
-// Pour eviter le message d'erreur si la variable n'est pas dans l'URL en GET.
+// 1 -
+// Il faut sécuriser l'application pour empecher les attaques de type XSS
 
 $input = isset($_GET['name']) ? $_GET['name'] : 'World';
 
-printf('Hello %s', $input);
+header('Content-Type: text/html; charset=utf-8');
+
+printf('Hello %s', htmlspecialchars($input, ENT_QUOTES, 'UTF-8'));
