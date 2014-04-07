@@ -1,6 +1,7 @@
 {
     "require": {
         "symfony/http-foundation": "~2.3",
-        "symfony/routing": "~2.3"
+        "symfony/routing": "~2.3",
+        "symfony/http-kernel": "~2.3"
     }
 }
