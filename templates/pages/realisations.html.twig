@@ -1,0 +1,14 @@
+{% extends "layout.html.twig" %}
+
+{% block titreh1 %}Réalisations{% endblock %}
+
+{% block content %}
+    <div class="twelve columns offset-by-one content">
+
+        <ul>
+        {% for realisation in realisations %}
+            <li>{{ realisation.lien_image }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

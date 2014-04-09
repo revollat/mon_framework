@@ -39,6 +39,17 @@ $app['swiftmailer.options'] = array(
     'port' => '25'
 );
 
+// mysql -u root -pmdp4root < /var/www/mf.local.dev/portfolio_modele.sql
+$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+    'db.options' => array(
+        'driver' => 'pdo_mysql',
+        'dbhost' => 'localhost',
+        'dbname' => 'portfolio_modele',
+        'user' => 'root',
+        'password' => 'mdp4root',
+    ),
+));
+
 // ACCUEIL
 $app->get('/', function () use ($app) {
     return $app['twig']->render('pages/accueil.html.twig');
@@ -48,6 +59,13 @@ $app->get('/', function () use ($app) {
 $app->get('/cv', function () use ($app) {
     return $app['twig']->render('pages/cv.html.twig');
 });
+
+// page réalisation
+$app->get('/realisations', function () use ($app) {
+    $realisations = $app['db']->fetchAll('SELECT * FROM realisations');
+    return $app['twig']->render('pages/realisations.html.twig', array('realisations' => $realisations));
+});
+
 
 // Page formulaire contact
 $app->match('/contact', function (Request $request) use ($app) {
