@@ -1,0 +1,14 @@
+{% extends "layout.html.twig" %}
+
+{% block titreh1 %}Contact{% endblock %}
+
+{% block content %}
+    <div class="twelve columns offset-by-one content">
+
+        <form action="/contact" method="post" {{ form_enctype(form) }} novalidate="novalidate">
+            {{ form_widget(form) }}
+            <input type="submit" />
+        </form>
+
+    </div>
+{% endblock %}
