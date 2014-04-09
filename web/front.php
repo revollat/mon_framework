@@ -100,5 +100,13 @@ $app->match('/contact', function (Request $request) use ($app) {
     return $app['twig']->render('pages/contact.html.twig', array('form' => $form->createView()));
 });
 
+// Erreur
+$app->error(function (\Exception $e, $code) use ($app) {
+    if ($app['debug']) {
+        return;
+    }
+    $page = 404 == $code ? '404.twig' : '500.twig';
+    return new Response($app['twig']->render('erreurs/'.$page, array('code' => $code)), $code);
+});
 
 $app->run();
