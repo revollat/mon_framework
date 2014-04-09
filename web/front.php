@@ -18,4 +18,8 @@ $app->get('/', function () use ($app) {
     return $app['twig']->render('pages/accueil.html.twig');
 });
 
+$app->get('/cv', function () use ($app) {
+    return $app['twig']->render('pages/cv.html.twig');
+});
+
 $app->run();
