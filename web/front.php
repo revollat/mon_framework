@@ -33,9 +33,11 @@ $app->register(new TranslationServiceProvider(array(
 )));
 
 // service d'envoi de mail
-//$app->register(new Silex\Provider\SwiftmailerServiceProvider());
-
-
+$app->register(new Silex\Provider\SwiftmailerServiceProvider());
+$app['swiftmailer.options'] = array(
+    'host' => 'localhost',
+    'port' => '25'
+);
 
 // ACCUEIL
 $app->get('/', function () use ($app) {
@@ -74,17 +76,20 @@ $app->match('/contact', function (Request $request) use ($app) {
 
         if ($form->isValid()) {
 
-//            $message = \Swift_Message::newInstance()
-//                ->setSubject($form->get('sujet')->getData())
-//                ->setFrom($form->get('email')->getData())
-//                ->setTo('test@example.com')
-//                ->setBody(
-//                    $app['twig']->render(
-//                        'email_contact.txt.twig',
-//                        array('message' => $form->get('message')->getData())
-//                    )
-//                );
-//            $app['mailer']->send($message);
+//            sudo service exim4 stop
+//            sudo python -m smtpd -n -c DebuggingServer localhost:25
+
+            $message = \Swift_Message::newInstance()
+                ->setSubject($form->get('sujet')->getData())
+                ->setFrom($form->get('email')->getData())
+                ->setTo('test@example.com')
+                ->setBody(
+                    $app['twig']->render(
+                        'mail/email_contact.txt.twig',
+                        array('message' => $form->get('message')->getData())
+                    )
+                );
+            $app['mailer']->send($message);
 
             $app['session']->getFlashBag()->add('message', 'Votre message à bien été envoyé !!');
 
@@ -94,5 +99,6 @@ $app->match('/contact', function (Request $request) use ($app) {
 
     return $app['twig']->render('pages/contact.html.twig', array('form' => $form->createView()));
 });
+
 
 $app->run();
