@@ -66,6 +66,18 @@ $app->get('/realisations', function () use ($app) {
     return $app['twig']->render('pages/realisations.html.twig', array('realisations' => $realisations));
 });
 
+$app->get('/realisation/{id}', function ($id) use ($app) {
+
+    $statment = $app['db']->executeQuery("SELECT * FROM realisations WHERE id_realisation = ?", array($id), array(\PDO::PARAM_INT));
+    $realisation = $statment->fetch();
+
+    if (!$statment->rowCount()) {
+        $app->abort(404, "la réalisation qui a pour ID $id n'existe pas");
+    }
+
+    return $app['twig']->render('pages/realisation.html.twig', array('realisation' =>  $realisation));
+});
+
 
 // Page formulaire contact
 $app->match('/contact', function (Request $request) use ($app) {
